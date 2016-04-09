@@ -43,16 +43,17 @@ def process_message(data, ctx):
     channel = data["channel"]
     text = data["text"]
 
-    if text.startswith("!welcome"):
-      ctx.api_call(
-          "chat.postMessage",
-          channel=data['user'],
-          text=WELCOME_TEXT,
-          link_names=1,
-          username='HackBat',
-          icon_emoji=':hackbat2:',
-          attachments=json.dumps(get_categories())
-      )
+    if text.startswith("<@U0MBV30AC>"):
+      if "welcome" in text:
+        ctx.api_call(
+            "chat.postMessage",
+            channel=data['user'],
+            text=WELCOME_TEXT,
+            link_names=1,
+            username='HackBat',
+            icon_emoji=':hackbat2:',
+            attachments=json.dumps(get_categories())
+        )
 
     if 'subtype' in data and data['subtype'] == 'channel_join':
         if ctx.server.channels.find(data['channel']).name == "test":
