@@ -3,3 +3,7 @@ deployment:
     branch: master
     commands:
       - ./deploy.sh
+
+test:
+  override:
+    - echo "test"
