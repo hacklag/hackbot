@@ -43,15 +43,14 @@ def process_message(data, ctx):
     channel = data["channel"]
     text = data["text"]
 
-    if text.startswith("<@U0MBV30AC>"):
+    if text.startswith("<@U0Q74DWT1>"):
       if "welcome" in text:
         ctx.api_call(
             "chat.postMessage",
             channel=data['user'],
             text=WELCOME_TEXT,
             link_names=1,
-            username='HackBat',
-            icon_emoji=':hackbat2:',
+            as_user="true",
             attachments=json.dumps(get_categories())
         )
 
@@ -62,8 +61,7 @@ def process_message(data, ctx):
                 channel=data['user'],
                 text=WELCOME_TEXT,
                 link_names=1,
-                username='HackBat',
-                icon_emoji=':hackbat2:',
+                as_user="true",
                 attachments=json.dumps(get_categories())
             )
 
