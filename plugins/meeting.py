@@ -47,7 +47,7 @@ def get_events(meeting_type,dateOffset=0):
           })
         )
 
-    return events_list
+    return json.dumps(events_list)
 
 def process_message(data, ctx):
     channel = data["channel"]
@@ -62,7 +62,7 @@ def process_message(data, ctx):
               text=prep_main_text('Upcoming'),
               link_names=1,
               as_user="true",
-              attachments=json.dumps(get_events('Upcoming'))
+              attachments=get_events('Upcoming')
           )
         elif "prev" in text:
           ctx.api_call(
@@ -71,7 +71,7 @@ def process_message(data, ctx):
               text=prep_main_text('Past'),
               link_names=1,
               as_user="true",
-              attachments=json.dumps(get_events('Past'))
+              attachments=get_events('Past')
           )
 
 
