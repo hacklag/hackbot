@@ -15,5 +15,6 @@ def is_event_in_next(days):
 
 def check_events():
   days=21
-  event_count=json.loads(is_event_in_next(days))
-  outputs.append(["C0NTENR9B", 'In next %d days, :hackbat: Hacklag will organize %d meetings. \n Any time, you can ask me about the details by using the `meeting next` command.' % (days, len(event_count))])
+  if is_event_in_next(days):
+    event_count=json.loads(is_event_in_next(days))
+    outputs.append(["C0NTENR9B", 'In next %d days, :hackbat: Hacklag will organize %d meetings. \n Any time, you can ask me about the details by using the `meeting next` command.' % (days, len(event_count))])
