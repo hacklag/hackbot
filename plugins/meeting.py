@@ -4,7 +4,7 @@ import os
 import requests
 import random
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 
 def prep_main_text(meeting_type):
@@ -22,10 +22,9 @@ def prep_event(event):
     ]
   }
 
-def get_events(meeting_type):
+def get_events(meeting_type,dateOffset=0):
     events_url = 'http://api.meetup.com/2/events?&group_urlname=Białystok-Hacklag-Foundation-Meetup&status='+str(meeting_type).lower()
     events = requests.get(events_url).json()
-
 
     events_list = []
     for event in events['results']:
@@ -33,19 +32,21 @@ def get_events(meeting_type):
       event_time = local_utc.localize(datetime.fromtimestamp(event['time']/1000))
       event_time = event_time.astimezone(timezone('Poland'))
 
-      events_list.append(
-        prep_event({
-            'name': event['name'],
-            'event_url': event['event_url'],
-            'description': re.sub('<[^<]+?>', '', event['description']),
-            'time': event_time.strftime('%Y-%m-%d %H:%M:%S %Z%z'),
-            'yes_rsvp_count': event['yes_rsvp_count'],
-            'venue_name': event['venue']['name'],
-            'venue_city': event['venue']['city'],
-            'venue_localized': event['venue']['localized_country_name'],
-            'venue_country': event['venue']['country']
-        })
-      )
+      if dateOffset == 0 or (event_time.astimezone(local_utc) - timedelta(days=dateOffset) < local_utc.localize(datetime.now())):
+        events_list.append(
+          prep_event({
+              'name': event['name'],
+              'event_url': event['event_url'],
+              'description': re.sub('<[^<]+?>', '', event['description']),
+              'time': event_time.strftime('%Y-%m-%d %H:%M:%S %Z%z'),
+              'yes_rsvp_count': event['yes_rsvp_count'],
+              'venue_name': event['venue']['name'],
+              'venue_city': event['venue']['city'],
+              'venue_localized': event['venue']['localized_country_name'],
+              'venue_country': event['venue']['country']
+          })
+        )
+
     return events_list
 
 def process_message(data, ctx):
@@ -72,4 +73,5 @@ def process_message(data, ctx):
               as_user="true",
               attachments=json.dumps(get_events('Past'))
           )
+
 
