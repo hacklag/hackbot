@@ -6,7 +6,9 @@ commands = [
   '`help` - get help message with commands list',
   '`lottery` - run simple lottery on channel',
   '`youtube` - simple link to YT movie',
-  '`welcome` - print welcome message'
+  '`welcome` - print welcome message',
+  '`meeting next` - print information about upcoming events',
+  '`meeting prev` - print information about past events'
 ];
 
 def print_commands():
