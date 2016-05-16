@@ -6,7 +6,7 @@ import meeting
 crontable = []
 outputs = []
 
-crontable.append([86400, "check_events"])
+#crontable.append([86400, "check_events"])
 
 def is_event_in_next(days):
   events_list = meeting.get_events('Upcoming',days)
