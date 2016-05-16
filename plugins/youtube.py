@@ -11,8 +11,8 @@ def process_message(data, ctx):
       ctx.api_call(
           "chat.postMessage",
           channel=data["channel"],
-          text="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-          link_names=1,
-          as_user="true",
-          parse="full"
+          text="<http://www.youtube.com/watch?v=6v2L2UGZJAM>",
+          unfurl_media=True,
+          unfurl_links=True,
+          as_user=True
       )
