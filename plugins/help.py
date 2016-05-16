@@ -5,27 +5,27 @@ import json
 import random
 
 commands = """[
-    {
-      "title": "help",
-      "text": "Get help message with commands list"
-    },
-    {
-      "title": "lottery",
-      "text": "Run simple lottery on channel"
-    },
-    {
-      "title": "meeting <type>",
-      "text": "Print information about meetups, for type use: \\n*next* - get info about upcoming events \\n*prev* - get info about past events"
-    },
-    {
-      "title": "welcome",
-      "text": "Print welcome message containing basic forum information"
-    },
-    {
-      "title": "youtube",
-      "text": "Print YouTube example movie"
-    }
-  ]"""
+  {
+    "title": "help",
+    "text": "Get help message with commands list"
+  },
+  {
+    "title": "lottery",
+    "text": "Run simple lottery on channel"
+  },
+  {
+    "title": "meeting <type>",
+    "text": "Print information about meetups, for type use: \\n*next* - get info about upcoming events \\n*prev* - get info about past events"
+  },
+  {
+    "title": "welcome",
+    "text": "Print welcome message containing basic forum information"
+  },
+  {
+    "title": "youtube",
+    "text": "Print YouTube example movie"
+  }
+]"""
 
 HELP_TEXT="""
 > Welcome to *Hackbot* service!
@@ -59,18 +59,16 @@ def get_commands():
   return json.dumps(commands_list)
 
 def process_message(data, ctx):
-    channel = data["channel"]
-    text = data["text"]
+  channel = data["channel"]
+  text = data["text"]
 
-    if text.startswith("<@U0Q74DWT1>"):
-      if "help" in text:
-        ctx.api_call(
-          "chat.postMessage",
-          channel=data['user'],
-          text=HELP_TEXT,
-          link_names=1,
-          as_user=True,
-          attachments=get_commands()
-        )
-
-print get_commands()
+  if text.startswith("<@U0Q74DWT1>"):
+    if "help" in text:
+      ctx.api_call(
+        "chat.postMessage",
+        channel=data['user'],
+        text=HELP_TEXT,
+        link_names=1,
+        as_user=True,
+        attachments=get_commands()
+      )

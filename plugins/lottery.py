@@ -21,10 +21,10 @@ def process_message(data, ctx):
   if text.startswith("<@U0Q74DWT1>"):
     if "lottery" in text:
       ctx.api_call(
-          "chat.postMessage",
-          channel=data["channel"],
-          text="Lottery initiated by <@"+data['user']+">",
-          link_names=1,
-          as_user="true",
-          attachments=json.dumps(attach)
+        "chat.postMessage",
+        channel=data["channel"],
+        text="Lottery initiated by <@"+data['user']+">",
+        link_names=1,
+        as_user=True,
+        attachments=json.dumps(attach)
       )
