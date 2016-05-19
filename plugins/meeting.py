@@ -51,27 +51,27 @@ def get_events(meeting_type,dateOffset=0):
 
 def process_message(data, ctx):
   channel = data["channel"]
-  text = data["text"]
-
-  if text.startswith("<@U0Q74DWT1>"):
-    if "meeting" in text:
-      if "next" in text:
-        ctx.api_call(
-          "chat.postMessage",
-          channel=data["channel"],
-          text=prep_main_text('Upcoming'),
-          link_names=1,
-          as_user=True,
-          attachments=get_events('Upcoming')
-        )
-      elif "prev" in text:
-        ctx.api_call(
-          "chat.postMessage",
-          channel=data["channel"],
-          text=prep_main_text('Past'),
-          link_names=1,
-          as_user=True,
-          attachments=get_events('Past')
-        )
+  if data.has_key("text"):
+    text = data["text"]
+    if text.startswith("<@U0Q74DWT1>"):
+      if "meeting" in text:
+        if "next" in text:
+          ctx.api_call(
+            "chat.postMessage",
+            channel=data["channel"],
+            text=prep_main_text('Upcoming'),
+            link_names=1,
+            as_user=True,
+            attachments=get_events('Upcoming')
+          )
+        elif "prev" in text:
+          ctx.api_call(
+            "chat.postMessage",
+            channel=data["channel"],
+            text=prep_main_text('Past'),
+            link_names=1,
+            as_user=True,
+            attachments=get_events('Past')
+          )
 
 
