@@ -53,6 +53,7 @@ def process_message(data, ctx):
   channel = data["channel"]
   if data.has_key("text"):
     text = data["text"]
+
     if text.startswith("<@U0Q74DWT1>"):
       if "meeting" in text:
         if "next" in text:

@@ -6,6 +6,7 @@ def process_message(data, ctx):
   channel = data["channel"]
   if data.has_key("text"):
     text = data["text"]
+
     if text.startswith("<@U0Q74DWT1>"):
       if "youtube" in text:
         ctx.api_call(
