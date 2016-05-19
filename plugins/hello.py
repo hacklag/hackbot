@@ -51,7 +51,7 @@ def process_message(data, ctx):
           channel=data['user'],
           text=WELCOME_TEXT,
           link_names=1,
-          as_user="true",
+          as_user=True,
           attachments=json.dumps(get_categories())
         )
 
