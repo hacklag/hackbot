@@ -60,15 +60,16 @@ def get_commands():
 
 def process_message(data, ctx):
   channel = data["channel"]
-  text = data["text"]
+  if data.has_key("text"):
+    text = data["text"]
 
-  if text.startswith("<@U0Q74DWT1>"):
-    if "help" in text:
-      ctx.api_call(
-        "chat.postMessage",
-        channel=data['user'],
-        text=HELP_TEXT,
-        link_names=1,
-        as_user=True,
-        attachments=get_commands()
-      )
+    if text.startswith("<@U0Q74DWT1>"):
+      if "help" in text:
+        ctx.api_call(
+          "chat.postMessage",
+          channel=data['user'],
+          text=HELP_TEXT,
+          link_names=1,
+          as_user=True,
+          attachments=get_commands()
+        )

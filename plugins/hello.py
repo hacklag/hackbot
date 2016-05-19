@@ -41,21 +41,11 @@ def get_categories():
 
 def process_message(data, ctx):
   channel = data["channel"]
-  text = data["text"]
+  if data.has_key("text"):
+    text = data["text"]
 
-  if text.startswith("<@U0Q74DWT1>"):
-    if "welcome" in text:
-      ctx.api_call(
-        "chat.postMessage",
-        channel=data['user'],
-        text=WELCOME_TEXT,
-        link_names=1,
-        as_user="true",
-        attachments=json.dumps(get_categories())
-      )
-
-  if 'subtype' in data and data['subtype'] == 'channel_join':
-    if ctx.server.channels.find(data['channel']).name == "test":
+    if text.startswith("<@U0Q74DWT1>"):
+      if "welcome" in text:
         ctx.api_call(
           "chat.postMessage",
           channel=data['user'],
@@ -64,4 +54,15 @@ def process_message(data, ctx):
           as_user=True,
           attachments=json.dumps(get_categories())
         )
+
+    if 'subtype' in data and data['subtype'] == 'channel_join':
+      if ctx.server.channels.find(data['channel']).name == "test":
+          ctx.api_call(
+            "chat.postMessage",
+            channel=data['user'],
+            text=WELCOME_TEXT,
+            link_names=1,
+            as_user=True,
+            attachments=json.dumps(get_categories())
+          )
 
